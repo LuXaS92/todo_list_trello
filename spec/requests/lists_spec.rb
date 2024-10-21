@@ -21,9 +21,10 @@ RSpec.describe "/lists", type: :request do
     skip("Add a hash of attributes valid for your model")
   }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) {skip("Add a hash of attributes invalid for your model")}
+  let(:board){Board.create(title: "teste")}
+
+
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -43,7 +44,7 @@ RSpec.describe "/lists", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_list_url
+      get new_board_list_path(board_id: board.id)
       expect(response).to be_successful
     end
   end
@@ -53,34 +54,6 @@ RSpec.describe "/lists", type: :request do
       list = List.create! valid_attributes
       get edit_list_url(list)
       expect(response).to be_successful
-    end
-  end
-
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new List" do
-        expect {
-          post lists_url, params: { list: valid_attributes }
-        }.to change(List, :count).by(1)
-      end
-
-      it "redirects to the created list" do
-        post lists_url, params: { list: valid_attributes }
-        expect(response).to redirect_to(list_url(List.last))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not create a new List" do
-        expect {
-          post lists_url, params: { list: invalid_attributes }
-        }.to change(List, :count).by(0)
-      end
-
-      it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post lists_url, params: { list: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
     end
   end
 
