@@ -18,6 +18,4 @@ test:
 
 production:
   <<: *default
-  database: todo_list_trello_production
-  username: todo_list_trello
-  password: <%= ENV["DATABASE_URL"] %>
+  database:  <%= ENV['DATABASE_URL'] %>
