@@ -1,0 +1,23 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  username: postgres
+  password: 159357
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+
+development:
+  <<: *default
+  database: todo_list_trello_development
+
+test:
+  <<: *default
+  database: todo_list_trello_test
+
+production:
+  <<: *default
+  database: todo_list_trello_production
+  username: todo_list_trello
+  password: <%= ENV["TODO_LIST_TRELLO_DATABASE_PASSWORD"] %>

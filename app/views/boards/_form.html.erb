@@ -1,0 +1,20 @@
+<!-- app/views/boards/_form.html.erb -->
+<%= form_with(model: board, local: true) do |form| %>
+  <% if board.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(board.errors.count, "erro") %> impediram que este board fosse salvo:</h2>
+      <ul>
+        <% board.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, "Título", class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <%= form.submit "Salvar", class: "btn btn-primary" %>
+<% end %>

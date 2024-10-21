@@ -1,0 +1,6 @@
+<!-- app/views/cards/new.html.erb -->
+<h1>Novo Card</h1>
+
+<%= render 'form', board: @board, list: @list, card: @card %>
+
+<%= link_to "Voltar", @board, class: "btn btn-light mt-3" %>

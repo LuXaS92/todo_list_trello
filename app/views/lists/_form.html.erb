@@ -1,0 +1,20 @@
+<!-- app/views/lists/_form.html.erb -->
+<%= form_with(model: [@board, list], local: true) do |form| %>
+  <% if list.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(list.errors.count, "erro") %> impediram que esta lista fosse salva:</h2>
+      <ul>
+        <% list.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, "Título", class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <%= form.submit "Salvar", class: "btn btn-primary" %>
+<% end %>

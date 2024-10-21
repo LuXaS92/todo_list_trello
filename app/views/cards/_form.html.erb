@@ -1,0 +1,25 @@
+<!-- app/views/cards/_form.html.erb -->
+<%= form_with(model: [@board, @list, card], local: true) do |form| %>
+  <% if card.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(card.errors.count, "erro") %> impediram que este card fosse salvo:</h2>
+      <ul>
+        <% card.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, "Título", class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, "Descrição", class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <%= form.submit "Salvar", class: "btn btn-primary" %>
+<% end %>
