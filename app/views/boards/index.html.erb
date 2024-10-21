@@ -16,7 +16,7 @@
                 <i class="fas fa-edit"></i> Editar
               <% end %>
               <%= button_to board_path(board), method: :delete, data: { confirm: "Tem certeza que deseja excluir este board?" }, class: "btn btn-outline-danger btn-sm flex-grow-1 mx-1" do %>
-                <i class="fas fa-trash"></i> Excluir
+                <i class="fas fa-trash-alt"></i> Excluir
               <% end %>
             </div>
           </div>
@@ -26,6 +26,6 @@
   </div>
 
   <%= link_to new_board_path, class: "btn btn-success btn-lg mt-3 d-block mx-auto", style: "max-width: 200px;" do %>
-    <i class="fas fa-plus"></i> Novo Board
+    <i class="fas fa-plus-circle"></i> Novo Board
   <% end %>
 </div>
