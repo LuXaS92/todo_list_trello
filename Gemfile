@@ -16,7 +16,7 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 gem "bootstrap", "~> 5.2.0"
 gem "jquery-rails"
-gem 'zeitwerk', '~> 2.6'
+gem 'zeitwerk', '~> 2.6.0'
 
 
 
