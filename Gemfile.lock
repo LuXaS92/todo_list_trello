@@ -339,7 +339,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
-  zeitwerk (~> 2.7.1)
+  zeitwerk (~> 2.6)
 
 BUNDLED WITH
    2.5.19
