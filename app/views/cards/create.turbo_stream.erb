@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "notifications" do %>
+  <%= render 'shared/notifications' %>
+<% end %>
+
+<%= turbo_stream.prepend "list_#{@list.id}_cards" do %>
+  <%= render @card %>
+<% end %>

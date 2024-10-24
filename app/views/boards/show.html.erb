@@ -1,45 +1,83 @@
-<!-- app/views/boards/show.html.erb -->
 <h1 class="text-center my-4"><%= @board.title %></h1>
 
-<div class="row flex-nowrap overflow-auto">
+<div class="row flex-nowrap overflow-auto px-3">
   <% @board.lists.each do |list| %>
     <div class="col-12 col-md-3 mb-4">
       <div class="card shadow-sm border-0 rounded-lg">
-        <div class="card-header bg-primary text-white rounded-top">
-          <%= truncate(list.title, length: 20) %>
-          <%= link_to "Editar", edit_board_list_path(@board, list), class: "btn btn-sm btn-outline-light float-end" %>
-          <%= button_to "Excluir", board_list_path(@board, list), method: :delete, data: { confirm: "Tem certeza?" }, class: "btn btn-sm btn-outline-danger float-end me-2" %>
+        <div class="card-header bg-light d-flex justify-content-between align-items-center py-3">
+          <h5 class="mb-0"><%= truncate(list.title, length: 20) %></h5>
+          <div class="btn-group">
+            <%= link_to edit_board_list_path(@board, list), class: "btn btn-sm btn-outline-secondary" do %>
+              <i class="fas fa-edit"></i>
+            <% end %>
+            <%= button_to board_list_path(@board, list), method: :delete, 
+                data: { confirm: "Tem certeza?" }, 
+                class: "btn btn-sm btn-outline-danger ms-1" do %>
+              <i class="fas fa-trash"></i>
+            <% end %>
+          </div>
         </div>
-        <div class="card-body">
-          <% if list.cards.any? %>
-            <% list.cards.each do |card| %>
-              <div class="card mb-2 shadow-sm">
-                <div class="card-body p-2">
-                  <h6 class="card-title text-dark"><%= truncate(card.title, length: 20) %></h6>
-                  <p class="card-text text-muted"><%= truncate(card.description, length: 50) %></p>
-                  <%= link_to "Editar", edit_board_list_card_path(@board, list, card), class: "btn btn-sm btn-outline-primary" %>
-                  <%= button_to "Excluir", board_list_card_path(@board, list, card), method: :delete, data: { confirm: "Tem certeza?" }, class: "btn btn-sm btn-outline-danger" %>
+
+        <div class="card-body p-2">
+          <div class="cards-container" style="min-height: 50px;">
+            <% if list.cards.any? %>
+              <% list.cards.each do |card| %>
+                <div class="card mb-2 hover-shadow transition-all">
+                  <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h6 class="card-title text-dark mb-2"><%= truncate(card.title, length: 20) %></h6>
+                    </div>
+                    <p class="card-text text-muted small mb-3"><%= truncate(card.description, length: 50) %></p>
+                    <div class="d-flex justify-content-end gap-2">
+                      <%= link_to edit_board_list_card_path(@board, list, card), 
+                          class: "btn btn-sm btn-outline-primary" do %>
+                        <i class="fas fa-edit"></i> Editar
+                      <% end %>
+                      <%= button_to board_list_card_path(@board, list, card), 
+                          method: :delete, 
+                          data: { confirm: "Tem certeza?" }, 
+                          class: "btn btn-sm btn-outline-danger" do %>
+                        <i class="fas fa-trash"></i> Excluir
+                      <% end %>
+                    </div>
+                  </div>
                 </div>
+              <% end %>
+            <% else %>
+              <div class="text-center text-muted py-3">
+                <i class="fas fa-inbox mb-2"></i>
+                <p class="small mb-0">Nenhum card nesta lista.</p>
               </div>
             <% end %>
-          <% else %>
-            <p class="text-muted">Nenhum card nesta lista.</p>
+          </div>
+
+          <%= link_to new_board_list_card_path(@board, list), 
+              class: "btn btn-sm btn-success w-100 mt-3" do %>
+            <i class="fas fa-plus"></i> Novo Card
           <% end %>
-          <%= link_to "Novo Card", new_board_list_card_path(@board, list), class: "btn btn-sm btn-success" %>
         </div>
       </div>
     </div>
   <% end %>
 
-  <!-- Novo botão de adicionar lista -->
+  <!-- Botão de Nova Lista -->
   <div class="col-12 col-md-3">
-    <div class="card shadow-sm border-0 rounded-lg d-flex align-items-center justify-content-center" style="min-height: 150px;">
-      <%= link_to "Nova Lista", new_board_list_path(@board), class: "btn btn-lg btn-primary" %>
+    <div class="card shadow-sm border-0 rounded-lg bg-light h-100">
+      <div class="card-body d-flex align-items-center justify-content-center">
+        <%= link_to new_board_list_path(@board), 
+            class: "btn btn-lg btn-primary d-flex align-items-center gap-2" do %>
+          <i class="fas fa-plus-circle"></i> Nova Lista
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="text-center mt-4">
-  <%= link_to "Editar Board", edit_board_path(@board), class: "btn btn-secondary me-2" %>
-  <%= link_to "Voltar para Boards", boards_path, class: "btn btn-light" %>
+<div class="text-center mt-4 mb-5">
+  <%= link_to edit_board_path(@board), class: "btn btn-secondary me-2" do %>
+    <i class="fas fa-edit"></i> Editar Board
+  <% end %>
+  <%= link_to boards_path, class: "btn btn-light" do %>
+    <i class="fas fa-arrow-left"></i> Voltar para Boards
+  <% end %>
 </div>

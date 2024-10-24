@@ -1,31 +1,59 @@
-<!-- app/views/boards/index.html.erb -->
-<div class="container mt-4">
-  <h1 class="mb-4 text-center">Meus Boards</h1>
+<div class="container mt-5">
+  <h1 class="mb-5 text-center fw-bold">Meus Quadros</h1>
 
-  <div class="row">
+  <div class="row g-4">
     <% @boards.each do |board| %>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-primary"><%= board.title %></h5>
-            <div class="mt-auto d-flex justify-content-between align-items-center">
-              <%= link_to board_path(board), class: "btn btn-outline-primary btn-sm flex-grow-1 mx-1" do %>
-                <i class="fas fa-eye"></i> Ver
-              <% end %>
-              <%= link_to edit_board_path(board), class: "btn btn-outline-secondary btn-sm flex-grow-1 mx-1" do %>
-                <i class="fas fa-edit"></i> Editar
-              <% end %>
-              <%= button_to board_path(board), method: :delete, data: { confirm: "Tem certeza que deseja excluir este board?" }, class: "btn btn-outline-danger btn-sm flex-grow-1 mx-1" do %>
-                <i class="fas fa-trash-alt"></i> Excluir
-              <% end %>
+      <div class="col-md-4">
+        <div class="board-card hover-shadow transition-all">
+          <div class="card h-100 border-0 shadow-sm rounded-lg">
+            <div class="card-body d-flex flex-column p-4">
+              <div class="board-header mb-4">
+                <h5 class="card-title text-primary mb-2 fw-bold"><%= board.title %></h5>
+                <div class="board-meta text-muted small">
+                  <i class="fas fa-list"></i> <%= board.lists.count %> Listas
+                </div>
+              </div>
+              
+              <div class="mt-auto">
+                <div class="d-flex gap-2 justify-content-between">
+                  <%= link_to board_path(board), 
+                      class: "btn btn-outline-primary btn-sm flex-grow-1 d-flex align-items-center justify-content-center gap-2" do %>
+                    <i class="fas fa-eye"></i> Ver
+                  <% end %>
+                  
+                  <div class="board-actions d-flex gap-2">
+                    <%= link_to edit_board_path(board), 
+                        class: "btn btn-outline-secondary btn-sm d-flex align-items-center" do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
+                    
+                    <%= button_to board_path(board), 
+                        method: :delete, 
+                        data: { confirm: "Tem certeza que deseja excluir este board?" }, 
+                        class: 'btn btn-outline-danger btn-sm d-flex align-items-center' do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     <% end %>
-  </div>
 
-  <%= link_to new_board_path, class: "btn btn-success btn-lg mt-3 d-block mx-auto", style: "max-width: 200px;" do %>
-    <i class="fas fa-plus-circle"></i> Novo Board
-  <% end %>
+
+    <div class="col-md-4">
+      <%= link_to new_board_path, class: "text-decoration-none" do %>
+        <div class="card h-100 border-2 border-dashed border-primary bg-light rounded-lg hover-shadow transition-all">
+          <div class="card-body d-flex align-items-center justify-content-center p-4">
+            <div class="text-center text-primary">
+              <i class="fas fa-plus-circle fa-2x mb-3"></i>
+              <h5 class="mb-0">Novo Quadro</h5>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

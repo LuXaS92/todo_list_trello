@@ -1,1 +1,184 @@
 @import "bootstrap";
+
+// app/assets/stylesheets/application.scss
+
+// Variáveis
+$card-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+$transition-time: 0.2s;
+$scrollbar-width: 6px;
+$primary-color: #007bff;  // Você pode ajustar para sua cor primária
+$light-gray: #f1f1f1;
+$dark-gray: #888;
+
+// Mixins
+@mixin transition($property: all) {
+  transition: $property $transition-time ease-in-out;
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: $scrollbar-width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $light-gray;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $dark-gray;
+    border-radius: 3px;
+
+    &:hover {
+      background: darken($dark-gray, 20%);
+    }
+  }
+}
+
+// Classes
+.board-container {
+  .list-card {
+    background: white;
+    border-radius: 8px;
+    @include transition;
+    
+    &:hover {
+      box-shadow: $card-shadow;
+    }
+  }
+}
+
+.hover-shadow {
+  @include transition;
+  
+  &:hover {
+    box-shadow: $card-shadow;
+    transform: translateY(-2px);
+  }
+}
+
+.cards-container {
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+  @include scrollbar;
+  
+  .card {
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    
+    &:hover {
+      border-color: $primary-color;
+    }
+    
+    .card-body {
+      padding: 1rem;
+    }
+  }
+}
+
+// Botões e ações
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  
+  .btn {
+    @include transition;
+    
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Animações
+.list-enter {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.list-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  @include transition;
+}
+
+// Layout responsivo
+@media (max-width: 768px) {
+  .cards-container {
+    max-height: calc(100vh - 200px);
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+    
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// Utilitários
+.transition-all {
+  @include transition;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+// Melhorias para o layout do board
+.board-list {
+  min-width: 300px;
+  margin-right: 1rem;
+  
+  .list-header {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    
+    h5 {
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+  
+  .list-footer {
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.02);
+  }
+}
+
+// Estilização dos cards
+.task-card {
+  background: white;
+  border-radius: 6px;
+  @include transition;
+  
+  &:hover {
+    box-shadow: $card-shadow;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text {
+    font-size: 0.875rem;
+    color: rgba(0,0,0,0.6);
+  }
+  
+  .card-actions {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+}

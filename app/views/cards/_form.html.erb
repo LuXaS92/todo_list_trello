@@ -1,25 +1,68 @@
-<!-- app/views/cards/_form.html.erb -->
-<%= form_with(model: [@board, @list, card], local: true) do |form| %>
-  <% if card.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(card.errors.count, "erro") %> impediram que este card fosse salvo:</h2>
-      <ul>
-        <% card.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<div class="container-fluid py-5" style="background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <%= form_with(model: [@board, @list, card], local: true, class: "needs-validation bg-white rounded-lg p-4 p-md-5 shadow-lg") do |form| %>
+        <div class="card border-0 shadow-sm" style="transform: translateY(-10px); transition: all 0.3s ease;">
+          <div class="card-body p-4">
+            <!-- Alerta de Erro -->
+            <% if card.errors.any? %>
+              <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                <strong><%= pluralize(card.errors.count, "erro") %></strong> encontrado:
+                <ul class="mb-0">
+                  <% card.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <% end %>
+
+            <!-- Campo Título -->
+            <div class="mb-4">
+              <%= form.label :title, "Título do Card", class: "form-label fw-bold text-dark" %>
+              <div class="input-group input-group-lg shadow-sm">
+                <%= form.text_field :title, 
+                    class: "form-control border-0 bg-light", 
+                    placeholder: "Digite o título do card",
+                    autofocus: true,
+                    required: true %>
+              </div>
+              <div class="form-text text-muted mt-2">
+                <i class="fas fa-info-circle me-1"></i>
+                Escolha um título descritivo para seu card
+              </div>
+            </div>
+
+            <!-- Campo Descrição -->
+            <div class="mb-4">
+              <%= form.label :description, "Descrição", class: "form-label fw-bold text-dark" %>
+              <div class="shadow-sm">
+                <%= form.text_area :description,
+                    class: "form-control border-0 bg-light",
+                    style: "height: 120px; resize: vertical; transition: all 0.3s ease;",
+                    placeholder: "Digite a descrição do card" %>
+              </div>
+              <div class="form-text text-muted mt-2">
+                <i class="fas fa-info-circle me-1"></i>
+                Adicione detalhes importantes sobre o card
+              </div>
+            </div>
+
+            <!-- Botões -->
+            <div class="d-flex gap-3 justify-content-end mt-5">
+              <%= link_to board_path(@board), 
+                  class: "btn btn-light px-4 py-2 shadow-sm hover-lift", 
+                  style: "transition: all 0.3s ease; border-radius: 0.25rem;" do %>
+                <i class="fas fa-arrow-left me-2"></i>Voltar
+              <% end %>
+              
+              <%= form.submit "Salvar Card", 
+                  class: "btn btn-primary px-4 py-2 shadow-sm hover-lift",
+                  style: "min-width: 140px; background: linear-gradient(45deg, #007bff, #0056b3); border: none; transition: all 0.3s ease; border-radius: 0.25rem;" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= form.label :title, "Título", class: "form-label" %>
-    <%= form.text_field :title, class: "form-control" %>
   </div>
-
-  <div class="mb-3">
-    <%= form.label :description, "Descrição", class: "form-label" %>
-    <%= form.text_area :description, class: "form-control" %>
-  </div>
-
-  <%= form.submit "Salvar", class: "btn btn-primary" %>
-<% end %>
+</div>

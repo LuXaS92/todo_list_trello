@@ -1,20 +1,63 @@
-<!-- app/views/lists/_form.html.erb -->
-<%= form_with(model: [@board, list], local: true) do |form| %>
-  <% if list.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(list.errors.count, "erro") %> impediram que esta lista fosse salva:</h2>
-      <ul>
-        <% list.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0 rounded-2">
+        <div class="card-body p-5">
+          <%= form_with(model: [@board, list], local: true, class: "needs-validation") do |form| %>
+            <% if list.errors.any? %>
+              <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-exclamation-triangle me-2"></i>
+                  <span><strong><%= pluralize(list.errors.count, "erro") %></strong> encontrado:</span>
+                </div>
+                <ul class="list-unstyled mb-0 mt-2">
+                  <% list.errors.full_messages.each do |message| %>
+                    <li><i class="fas fa-chevron-right me-1"></i><%= message %></li>
+                  <% end %>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <% end %>
+
+            <!-- Campo de Título -->
+            <div class="mb-4">
+              <div class="form-floating">
+                <%= form.text_field :title,
+                    class: "form-control shadow-sm", 
+                    placeholder: "Digite o título da lista",
+                    autofocus: true,
+                    required: true,
+                    style: "border-radius: 0.375rem;" %> <!-- Menos arredondado -->
+                <%= form.label :title do %>
+                  <i class="fas fa-list-ul me-1"></i> Título da Lista
+                <% end %>
+              </div>
+              <small class="text-muted">
+                <i class="fas fa-info-circle me-1"></i>
+                Escolha um título descritivo para sua lista
+              </small>
+            </div>
+
+            <!-- Botão de Salvar -->
+            <div class="d-grid">
+              <%= form.submit "Salvar Lista", 
+                  class: "btn btn-primary btn-lg shadow-sm",
+                  style: "border-radius: 0.375rem;" do %> <!-- Menos arredondado -->
+                <i class="fas fa-save me-1"></i> Salvar Lista
+              <% end %>
+            </div>
+          <% end %>
+
+          <!-- Botão de Voltar -->
+          <div class="d-grid mt-3">
+            <%= link_to board_path(@board), 
+                class: "btn btn-outline-secondary btn-lg shadow-sm",
+                style: "border-radius: 0.375rem;" do %> <!-- Menos arredondado -->
+              <i class="fas fa-arrow-left me-1"></i> Voltar
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= form.label :title, "Título", class: "form-label" %>
-    <%= form.text_field :title, class: "form-control" %>
   </div>
-
-  <%= form.submit "Salvar", class: "btn btn-primary" %>
-<% end %>
+</div>

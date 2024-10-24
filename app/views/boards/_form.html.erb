@@ -1,20 +1,57 @@
-<!-- app/views/boards/_form.html.erb -->
-<%= form_with(model: board, local: true) do |form| %>
-  <% if board.errors.any? %>
-    <div class="alert alert-danger">
-      <h2><%= pluralize(board.errors.count, "erro") %> impediram que este board fosse salvo:</h2>
-      <ul>
-        <% board.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-body p-5">
+          <%= form_with(model: board, local: true, class: "needs-validation") do |form| %>
+            <% if board.errors.any? %>
+              <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                <div class="d-flex align-items-center">
+                  <i class="fas fa-exclamation-triangle me-2"></i>
+                  <span><strong><%= pluralize(board.errors.count, "erro") %></strong> encontrado:</span>
+                </div>
+                <ul class="list-unstyled mb-0 mt-2">
+                  <% board.errors.full_messages.each do |message| %>
+                    <li><i class="fas fa-chevron-right me-1"></i><%= message %></li>
+                  <% end %>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <% end %>
+
+            <!-- Campo de Título -->
+            <div class="mb-5">
+              <div class="form-floating">
+                <%= form.text_field :title,
+                    class: "form-control form-control-lg border-0 bg-light shadow-sm",
+                    placeholder: " ",
+                    autofocus: true,
+                    required: true %>
+                <%= form.label :title, "Título do Quadro", class: "form-label" %>
+              </div>
+              <small class="text-muted">
+                <i class="fas fa-info-circle me-1"></i>
+                Escolha um título descritivo e claro para seu quadro
+              </small>
+            </div>
+
+            <!-- Botão de Salvar -->
+            <div class="d-grid">
+              <%= form.submit board.new_record? ? "Criar Quadro" : "Atualizar Quadro", 
+                  class: "btn btn-primary btn-lg shadow-sm",
+                  style: "border-radius: 0.375rem;" %>
+            </div>
+          <% end %>
+
+          <!-- Botão de Voltar -->
+          <div class="d-grid mt-3">
+            <%= link_to boards_path, class: "btn btn-outline-secondary btn-lg shadow-sm", 
+                style: "border-radius: 0.375rem;" do %>
+              <i class="fas fa-arrow-left me-1"></i> Voltar
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= form.label :title, "Título", class: "form-label" %>
-    <%= form.text_field :title, class: "form-control" %>
   </div>
-
-  <%= form.submit "Salvar", class: "btn btn-primary" %>
-<% end %>
+</div>

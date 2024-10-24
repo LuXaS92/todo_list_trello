@@ -12,32 +12,20 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
   </head>
 
   <body class="d-flex flex-column min-vh-100">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container">
           <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
-            <i class="fas fa-tasks me-2"></i> Todo List Trello
+            <i class="fas fa-tasks me-2"></i> Todo List App
           <% end %>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <%= link_to boards_path, class: "nav-link" do %>
-                  <i class="fas fa-clipboard-list me-1"></i> Boards
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "#", class: "nav-link" do %>
-                  <i class="fas fa-user me-1"></i> Perfil
-                <% end %>
-              </li>
-            </ul>
-          </div>
         </div>
       </nav>
     </header>
@@ -50,7 +38,7 @@
 
     <footer class="bg-light py-3 mt-4">
       <div class="container text-center">
-        <p class="text-muted mb-0">&copy; <%= Time.current.year %> Todo List Trello. Todos os direitos reservados.</p>
+        <p class="text-muted mb-0">&copy; <%= Time.current.year %> Todo List App. Todos os direitos reservados.</p>
       </div>
     </footer>
   </body>
